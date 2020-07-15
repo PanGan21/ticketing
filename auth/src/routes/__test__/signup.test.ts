@@ -28,8 +28,21 @@ it("return a 201 with missing email and password", async () => {
     .post("/api/users/signup")
     .send({ email: "test@test.com" })
     .expect(400);
+
   return request(app)
     .post("/api/users/signup")
     .send({ password: "password" })
+    .expect(400);
+});
+
+it("dissallows duplicate emails", async () => {
+  await request(app)
+    .post("/api/users/signup")
+    .send({ email: "test@test.com", password: "password" })
+    .expect(201);
+
+  return request(app)
+    .post("/api/users/signup")
+    .send({ email: "test@test.com", password: "password" })
     .expect(400);
 });
