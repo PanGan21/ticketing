@@ -22,3 +22,10 @@ it("returns a 400 with an invalid password", async () => {
     .send({ email: "test@test.com", password: "p" })
     .expect(400);
 });
+
+it("return a 201 with missing email and password", async () => {
+  return request(app)
+    .post("/api/users/signup")
+    .send({ email: "", password: "" })
+    .expect(400);
+});
