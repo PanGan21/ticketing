@@ -1,5 +1,5 @@
 {
-  "name": "common",
+  "name": "@pgtickets/common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
