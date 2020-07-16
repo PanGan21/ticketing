@@ -1,11 +1,10 @@
 import express, { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
+import { validateRequest, BadRequestError } from "@pgtickets/common";
 import jwt from "jsonwebtoken";
 
 import { Password } from "../services/password";
 import { User } from "../models/user";
-import { validateRequest } from "../middlewares/validate-request";
-import { BadRequestError } from "../errors/bad-request-error";
 
 const router = express.Router();
 
