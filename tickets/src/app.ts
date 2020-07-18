@@ -5,6 +5,7 @@ import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@pgtickets/common";
 import { createTicketRouter } from "../src/routes/new";
 import { showTicketRouter } from "../src/routes/show";
+import { indexTicketRouter } from "../src/routes/index";
 
 const app = express();
 app.set("trust proxy", true);
@@ -19,6 +20,7 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexTicketRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
