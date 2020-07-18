@@ -1,5 +1,4 @@
 import request from "supertest";
-import mongoose from "mongoose";
 
 import { Ticket } from "../../models/tickets";
 import { app } from "../../app";
