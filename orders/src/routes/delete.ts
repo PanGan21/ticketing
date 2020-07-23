@@ -15,7 +15,7 @@ router.delete(
   async (req: Request, res: Response) => {
     const { orderId } = req.params;
 
-    const order = await Order.findById(orderId).populate("ticket");
+    const order = await Order.findById(orderId);
 
     if (!order) {
       throw new NotFoundError();
@@ -24,9 +24,10 @@ router.delete(
       throw new NotAuthorizedError();
     }
 
-    console.log(order);
     order.status = OrderStatus.Cancelled;
     order.save();
+
+    // publising an event saying this was cancelled
 
     res.status(204).send(order);
   }
