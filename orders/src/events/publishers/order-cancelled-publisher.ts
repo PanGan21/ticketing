@@ -1,5 +1,5 @@
-import { Publisher, Subjects, OrderCretedEvent } from "@pgtickets/common";
+import { Publisher, OrderCancelledEvent, Subjects } from "@pgtickets/common";
 
-export class OrderCreatedPublisher extends Publisher<OrderCretedEvent> {
-  subject: Subjects.OrderCreated = Subjects.OrderCreated;
+export class OrderCancelledPublisher extends Publisher<OrderCancelledEvent> {
+  subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
 }
