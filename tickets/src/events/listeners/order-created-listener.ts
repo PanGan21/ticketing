@@ -23,7 +23,14 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     await ticket.save();
 
     // Emit a ticket updated event because the version is changed
-    new TicketUpdatedPublisher(this.client);
+    await new TicketUpdatedPublisher(this.client).publish({
+      id: ticket.id,
+      price: ticket.price,
+      title: ticket.title,
+      userId: ticket.userId,
+      orderId: ticket.orderId,
+      version: ticket.version,
+    });
 
     // Ack the message
     msg.ack();
