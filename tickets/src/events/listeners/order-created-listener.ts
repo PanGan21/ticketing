@@ -1,7 +1,7 @@
 import { Listener, OrderCreatedEvent, Subjects } from "@pgtickets/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./queue-group-name";
-import { Ticket } from "../../models/tickets";
+import { Ticket } from "../../models/ticket";
 import { TicketUpdatedPublisher } from "../publishers/ticket-updated-publisher";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
