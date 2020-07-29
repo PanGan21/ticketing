@@ -2,6 +2,7 @@ import { Listener, OrderCreatedEvent, Subjects } from "@pgtickets/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./queue-group-name";
 import { Ticket } from "../../models/tickets";
+import { TicketUpdatedPublisher } from "../publishers/ticket-updated-publisher";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
@@ -20,6 +21,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
     // Save the ticket
     await ticket.save();
+
+    // Emit a ticket updated event because the version is changed
 
     // Ack the message
     msg.ack();
