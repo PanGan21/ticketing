@@ -1,7 +1,7 @@
 import {
   Listener,
-  ExpirationCompleteEvent,
   Subjects,
+  ExpirationCompleteEvent,
   OrderStatus,
 } from "@pgtickets/common";
 import { Message } from "node-nats-streaming";
@@ -12,22 +12,27 @@ import { OrderCancelledPublisher } from "../publishers/order-cancelled-publisher
 export class ExpirationCompleteListener extends Listener<
   ExpirationCompleteEvent
 > {
-  subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
   queueGroupName = queueGroupName;
+  subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
+
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
     const order = await Order.findById(data.orderId).populate("ticket");
-
+    console.log("FIRST", order);
     if (!order) {
       throw new Error("Order not found");
     }
 
-    order.set({ status: OrderStatus.Cancelled });
+    order.set({
+      status: OrderStatus.Cancelled,
+    });
     await order.save();
-
+    console.log("SECOND", order);
     await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
       version: order.version,
-      ticket: order.ticket.id,
+      ticket: {
+        id: order.ticket.id,
+      },
     });
 
     msg.ack();
