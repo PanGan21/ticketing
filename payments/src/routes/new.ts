@@ -37,8 +37,6 @@ router.post(
       throw new BadRequestError("Cannot pay for a cancelled order");
     }
 
-    // Make sure the payment amount matches the amount due for the order
-
     // Verify payment with Stripe API
 
     // Create charge record to record to record successfull payments
