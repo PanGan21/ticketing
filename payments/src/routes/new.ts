@@ -9,6 +9,7 @@ import {
   BadRequestError,
 } from "@pgtickets/common";
 import { Order } from "../models/order";
+import { stripe } from "../stripe";
 
 const router = express.Router();
 
@@ -38,6 +39,11 @@ router.post(
     }
 
     // Verify payment with Stripe API
+    await stripe.charges.create({
+      currency: "usd",
+      amount: order.price * 100,
+      source: token,
+    });
 
     // Create charge record to record to record successfull payments
 
