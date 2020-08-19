@@ -38,16 +38,14 @@ router.post(
       throw new BadRequestError("Cannot pay for a cancelled order");
     }
 
-    // Verify payment with Stripe API
+    // // Create charge record to record successfull payments
     await stripe.charges.create({
       currency: "usd",
       amount: order.price * 100,
       source: token,
     });
 
-    // Create charge record to record to record successfull payments
-
-    res.send({ success: true });
+    res.status(201).send({ success: true });
   }
 );
 
