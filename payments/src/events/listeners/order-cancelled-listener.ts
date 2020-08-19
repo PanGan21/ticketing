@@ -1,7 +1,7 @@
 import {
-  Listener,
   OrderCancelledEvent,
   Subjects,
+  Listener,
   OrderStatus,
 } from "@pgtickets/common";
 import { Message } from "node-nats-streaming";
@@ -23,7 +23,6 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     }
 
     order.set({ status: OrderStatus.Cancelled });
-
     await order.save();
 
     msg.ack();
