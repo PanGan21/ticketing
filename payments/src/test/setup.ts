@@ -13,6 +13,10 @@ declare global {
 // Fake the nats connection for testing
 jest.mock("../nats-wrapper");
 
+// Stripe key for testing
+process.env.STRIPE_KEY =
+  "sk_test_51HHyL9AwDWeoc60HWkD9G6cqm9Dl8QvuuHQZHRglJFKSiGnSSX0Dpg4yoDPkuXAWmh2LjKdTSOuxc9oatzqvJL7a003dwR5dWf";
+
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "asdfasdf";
